@@ -1,0 +1,31 @@
+# Caesar Cipher Algorithm
+def encrypt_decrypt(Plaintext, mode, Shift_value):
+    result = ""
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    if mode == "d":
+        Shift_value = -Shift_value
+    for char in Plaintext:
+        if char.isalpha():  # Encrypt/decrypt letters only
+            letter = char.lower()
+            index = alphabet.find(letter)  # Find index of the letter in the alphabet
+            new_index = (index + Shift_value) % 26
+            result += alphabet[new_index]
+        elif char.isdigit():  # Writes down numbers as they are
+            result += char
+        else:
+            result += char  # Preserves spaces and punctuation
+    return result
+
+
+print("Do you want to encrypt(e) or decrypt(d)?")
+users_input = input("e/d : ").lower()
+if users_input == "e":
+    key = int(input("Enter the key(1-26): "))
+    plaintext = input("Enter the text to be encrypted: ")
+    ciphertext = encrypt_decrypt(plaintext, users_input, key)
+    print(f'Encrypted text: {ciphertext}')
+elif users_input == "d":
+    key = int(input("Enter the key(1-26): "))
+    ciphertext = input("Enter the text to be decrypted: ")
+    plaintext = encrypt_decrypt(ciphertext, users_input, key)
+    print(f'Plaintext: {plaintext}')
